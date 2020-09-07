@@ -5,6 +5,20 @@
 {% block title %} Register {% endblock title %}
 
 {% block body %}
+{% if user.is_authenticated %}
+<div class="container my-5">
+    <center>
+    <div class="jumbotron">
+        <h1 class="display-4">Hello, {{user.username}}!</h1>
+
+        <hr class="my-4">
+        <p>You are already logged in.</p>
+
+    </div>
+        </center>
+</div>
+
+{% else %}
 
 <div class="jumbotron jumbotron-fluid" >
     <div class="container" style="max-width: 550px;">
@@ -32,6 +46,11 @@
                              data-parent="#accordionExample"
                              id="collapseOne">
                             <div class="card-body">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Role</label>
+                                    {% render_field form.role class='form-control' select='Student' %}
+
+                                </div>
 
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Username</label>
@@ -198,4 +217,5 @@
 
     </div>
 </div>
+{% endif %}
 {% endblock body %}

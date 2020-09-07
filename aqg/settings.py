@@ -10,7 +10,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
+from pathlib import Path
 import os
+from django.contrib.messages import constants as messages
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -36,7 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Register.apps.RegisterConfig',
+    'T_register.apps.TRegisterConfig',
     'Home.apps.HomeConfig',
+    'mainSel.apps.MainselConfig',
     'Profile_info.apps.ProfileInfoConfig',
     'widget_tweaks',
 ]
@@ -122,3 +126,7 @@ LOGIN_REDIRECT_URL = '/'
 
 MEDIA_URL ='/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger',
+}

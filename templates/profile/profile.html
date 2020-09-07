@@ -2,6 +2,8 @@
 
 {% block title %} Profile {% endblock title %}
 
+{% block activeProfile %} active {% endblock activeProfile %}
+
 {% block logactive %} disabled {% endblock logactive %}
 
 
@@ -120,12 +122,9 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="profile-img">
-                        <img alt=""
-                             src="https://secure.img1-fg.wfcdn.com/im/73650955/resize-h340-p1-w340%5Ecompr-r70/8470/84707680/Pokemon+Pikachu+Wall+Decal.jpg"/>
-                        <div class="file btn btn-lg btn-primary">
-                            Change Photo
-                            <input name="file" type="file"/>
-                        </div>
+                        <img class="rounded" alt=""
+                             src="{{request.user.userdetail.image.url}}"/>
+
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -134,7 +133,7 @@
                             {{request.user.first_name}} {{request.user.last_name}}
                         </h5>
                         <h6>
-                            Student
+                            {{request.user.userdetail.role}}
                         </h6>
                         <p class="proile-rating">RANKINGS : <span>8/10</span></p>
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -153,7 +152,7 @@
                 </div>
                 <div class="col-md-2">
 
-                        <button class="profile-edit-btn"><a href="edit">Edit Profile</a></button>
+                        <button class="profile-edit-btn"><a href="/home/profile/edit">Edit Profile</a></button>
 
 
                 </div>

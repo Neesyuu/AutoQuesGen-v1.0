@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from PIL import Image
 
 # Create your models here.
@@ -20,6 +20,8 @@ class UserDetail(models.Model):
     slcboard = models.CharField(max_length=10, null=True)
     slcyear = models.CharField(max_length=10, null=True)
     slcpercent = models.CharField(max_length=10, null=True)
+    image = models.ImageField(upload_to='profile_pics', null=True, default='pic.jpg')
+    role = models.ForeignKey(Group, null=True, on_delete=models.CASCADE)
 
     # to save image in small size
     def save(self, *args, **kwargs):

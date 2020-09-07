@@ -2,6 +2,8 @@ from django.shortcuts import render
 from Register.forms import UserRegisterForm
 from Register.models import UserDetail
 from django.contrib.auth.models import User
+from django.contrib import messages
+from django.contrib.messages import get_messages
 
 # Create your views here.
 
@@ -32,8 +34,18 @@ def registerView(request):
                        dob=dob, address=address, phone=phone, father=father, mother=mother,
                        plus2name=plus2name, plus2board=plus2board, plus2year=plus2year, plus2percent=plus2percent,
                        slcname=slcname, slcboard=slcboard, slcyear=slcyear, slcpercent=slcpercent).save()
+            messages.success(request, 'Success')
+
+        else:
+            messages.error(request, 'Invalid: try again')
+
+
+
+
+
     else:
         form = UserRegisterForm()
+
 
     params = {
         'form': form,

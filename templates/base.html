@@ -14,9 +14,9 @@
 <body style="background-color:#F1F3F6;">
 <!--<body style="background-color:#F1F3F6;">-->
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light shadow p-3 mb-5 bg-white rounded"
-     style="height: 4rem; position: sticky; width: 100%; text-align: center; top: 0; z-index: 1020;">
-    <a class="navbar-brand" href="/">AutoQuesGen.</a>
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow  mb-0 bg-white rounded"
+     style=" position: sticky; width: 100%;  top: 0; z-index: 1020;">
+    <a class="navbar-brand" href="/home">AutoQuesGen.</a>
     <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
             class="navbar-toggler"
             data-target="#navbarSupportedContent" data-toggle="collapse" type="button">
@@ -25,20 +25,33 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
+            {% if user.is_authenticated %}
+            <li class="nav-item {% block activeDash %} {% endblock activeDash %}">
+                <a class="nav-link" href="/home/dashboard">Dashboard <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item {% block activeProfile %} {% endblock activeProfile %}">
+                <a class="nav-link" href="/home/profile">Profile <span class="sr-only">(current)</span></a>
+            </li>
+            {% else %}
             <li class="nav-item {% block active %} {% endblock active %}">
-                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
+            </li>
+            {% endif %}
+            <li class="nav-item">
+                <a class="nav-link" href="/home#about-us">About Us</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/#about-us">About Us</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/#contact-us">Contact Us</a>
+                <a class="nav-link" href="/home#contact-us">Contact Us</a>
             </li>
 
 
         </ul>
 
         {% if user.is_authenticated %}
+
+        <img alt="Cinque Terre" class="rounded" height="30px"
+             src="{{request.user.userdetail.image.url}}" width="30px">
+        &nbsp;
         <ul class="navbar-nav">
             <li class="nav-item dropdown">
                 <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle" data-toggle="dropdown"
@@ -46,11 +59,12 @@
                    id="navbarDropdown" role="button">
                     Welcome {{request.user}}
                 </a>
+
                 <div aria-labelledby="navbarDropdown" class="dropdown-menu">
 
-                    <a class="dropdown-item" href="/profile">Profile</a>
+                    <a class="dropdown-item" href="/home/profile">Profile</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="/logout">Logout</a>
+                    <a class="dropdown-item" href="/home/logout">Logout</a>
                 </div>
             </li>
         </ul>
@@ -59,15 +73,26 @@
         {% else %}
 
         <form class="form-inline my-2 my-lg-0">
-            <a class="btn btn-outline-primary m-2 my-sm-0" href="/login" role="button">Login</a>
+            <a class="btn btn-outline-primary m-2 my-sm-0" href="/home/login" role="button">Login</a>
         </form>
 
         <form class="form-inline my-2 my-lg-0">
-            <a class="btn btn-outline-primary m-2 my-sm-0" href="/cs">I am a Teacher</a>
+            <a class="btn btn-outline-primary m-2 my-sm-0" href="/teacher">I am a Teacher</a>
         </form>
         {% endif %}
     </div>
 </nav>
+
+{% for message in messages %}
+<div class="alert alert-{{ message.tags }} mb-0 alert-dismissible fade show" role="alert">
+    <strong>Message :</strong> {{ message }}
+    <button aria-label="Close" class="close" data-dismiss="alert" type="button">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+{% endfor %}
+
+
 
 
 {% block body %}

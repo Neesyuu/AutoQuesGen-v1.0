@@ -18,16 +18,15 @@ from django.urls import path, include
 from django.contrib.auth import views as auth_views
 from django.conf import settings
 from django.conf.urls.static import static
+from mainSel import views
+from django.contrib import messages
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('Home.urls'), name='home'),
-    path('register/', include('Register.urls'), name='register'),
-    path('dashboard/', include('Dashboard.urls'), name='dashboard'),
-    path('profile/', include('Profile_info.urls'), name='ProfileInfo'),
-    path('login/', auth_views.LoginView.as_view(template_name='login/login.html', redirect_authenticated_user=True),
-         name='login'),
-    path('logout/', auth_views.LogoutView.as_view(next_page='login'), name='logout'),
+    path('', include('mainSel.urls'), name='mainH'),
+    path('home/', include('Home.urls'), name='home'),
+    path('teacher/', include('T_register.urls'), name='TeacherInfo'),
+
 ]
 
 if settings.DEBUG:
